@@ -1,6 +1,6 @@
 Nome: data-envio-empenho
 Atalho: /data-envio-empenho
-Preenche a data de envio de Notas de Empenho aos fornecedores a partir de um CSV com as colunas `EMPENHO` e `PROCESSP`, consultando os e-mails enviados nos processos do SEI.
+Preenche a data de envio de Notas de Empenho aos fornecedores a partir de um CSV com as colunas `EMPENHO` e `PROCESSO`, consultando os e-mails enviados nos processos do SEI.
 
 # Objetivo
 Preencher `data_envio` (`DD/MM/AAAA`) das Notas de Empenho (`AAAANE000000`) enviadas por e-mail nos processos do SEI listados no CSV anexado.
