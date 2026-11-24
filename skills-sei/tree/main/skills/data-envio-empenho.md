@@ -32,7 +32,7 @@ documentos_listar(
 
 - Ler TODOS os documentos encontrados, inclusive os de processos diferentes.
 - Reunir os números SEI dos documentos e seus respectivos processos.
-- Executar documento_ler em lotes de até 20 documentos.
+- Executar documento_ler em lotes de até 10 documentos.
 - Utilizar tamanho: 500.
 - Processar todos os lotes até concluir a leitura de todos os documentos.
 - Não solicitar continuação da leitura.
@@ -47,7 +47,7 @@ documentos_listar(
 De cada documento lido com sucesso, extrair exclusivamente:
 
 - Data de Envio
-- Para
+- Para (incluindo todos os emails)
 - Assunto
 
 Utilizar os rótulos presentes no conteúdo do documento.
