@@ -1,0 +1,21 @@
+Nome:Conferir NS nos processos
+Atalho:/conferir-ns-processos
+Quando usar:Quando o usuário pedir para anexar as NS baixadas aos processos da planilha_NS.csv. Ex.: "anexe as NS", "/anexar-ns".
+
+Conferir, para cada linha do CSV (PROCESSO, NS), se há arquivo da NS e se o processo está pronto para receber o anexo. Esta skill NÃO anexa: o SEI Pro não tem tool de documento externo.
+
+Acesso aos arquivos: conector Google Drive (googleDrive, tool `mcp_googledrive_list_directory`, via mcp_chamar). Não é o SEI. Os caminhos são relativos à raiz do conector, que já é SEI_Documentos: NUNCA escrever `SEI_Documentos` nem `G:\...` no caminho.
+- CSV: `NS\planilhaNS\planilha_NS.csv` (colunas PROCESSO, NS). Se o usuário anexou o CSV na conversa, usar esse e não buscar no Drive.
+- Arquivos: `NS\ns_baixadas`. Listar uma única vez; não baixar nem ler o conteúdo dos arquivos.
+
+Procedimento:
+1. Obter o CSV (anexo da conversa ou Drive, uma única vez) e montar os pares (PROCESSO, NS), ignorando cabeçalho e linhas vazias.
+2. Listar `NS\ns_baixadas` uma única vez e mapear NS → arquivo pelo código no nome. Sem arquivo ou com mais de um candidato: marcar. Se a listagem falhar, informar o erro e parar.
+3. Por linha, em sequência, sem repetir chamada já feita:
+   - `processo_consultar`: existe e está aberto na unidade (`editavel`)?
+   - `documentos_listar` com `filtro` = NS: já existe documento com esse título?
+   Se o mesmo processo aparecer em mais de uma linha, chamar `processo_consultar` e `documentos_listar` só uma vez para ele (sem filtro) e verificar cada NS no resultado.
+4. Erro em uma linha não interrompe o lote.
+5. Não ler conteúdo de documentos nem alterar nada.
+
+Resposta final: tabela `| Processo | NS | Arquivo no Drive | Situação |`, Situação = "pronto para anexar" / "já anexado" / "processo não aberto na unidade" / "arquivo ausente ou duplicado" / "erro: motivo". Fechar com totais e a lista dos prontos, para anexar manualmente (Tipo: Anexo, título = NS).
